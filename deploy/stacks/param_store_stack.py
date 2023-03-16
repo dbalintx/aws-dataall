@@ -4,7 +4,6 @@ from aws_cdk import (
 
 from .pyNestedStack import pyNestedClass
 
-
 class ParamStoreStack(pyNestedClass):
     def __init__(
         self,
@@ -25,6 +24,13 @@ class ParamStoreStack(pyNestedClass):
             f'ResourcePrefixParam{envname}',
             parameter_name=f'/dataall/{envname}/resourcePrefix',
             string_value=resource_prefix,
+        )
+
+        aws_ssm.StringParameter(
+            self,
+            f'DataAllVersion{envname}',
+            parameter_name=f'/dataall/{envname}/dataAllVersion',
+            string_value='V1.4.2',
         )
 
         if custom_domain:
