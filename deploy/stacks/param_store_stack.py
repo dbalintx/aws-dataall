@@ -26,13 +26,6 @@ class ParamStoreStack(pyNestedClass):
             string_value=resource_prefix,
         )
 
-        aws_ssm.StringParameter(
-            self,
-            f'DataAllVersion{envname}',
-            parameter_name=f'/dataall/{envname}/dataAllVersion',
-            string_value='V1.4.2',
-        )
-
         if custom_domain:
             custom_domain = custom_domain['hosted_zone_name']
             frontend_alternate_domain = custom_domain

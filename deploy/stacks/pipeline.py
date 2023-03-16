@@ -8,6 +8,7 @@ from aws_cdk import aws_codecommit as codecommit
 from aws_cdk import aws_ec2 as ec2
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_s3 as s3
+from aws_cdk import aws_ssm as ssm
 from aws_cdk import pipelines
 from aws_cdk.pipelines import CodePipelineSource
 
@@ -38,6 +39,13 @@ class PipelineStack(Stack):
         self.source = source
         self.resource_prefix = resource_prefix
         self.target_envs = target_envs
+
+        self.version = ssm.StringParameter(
+            self,
+            f'DataAllVersion',
+            parameter_name=f'/{self.resource_prefix}/{self.git_branch}/dataall/version',
+            string_value='V1.4.2',
+        )
 
         self.vpc_stack = VpcStack(
             self,
